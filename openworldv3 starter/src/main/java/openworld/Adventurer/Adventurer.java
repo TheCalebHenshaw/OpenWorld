@@ -41,31 +41,83 @@ public class Adventurer extends TravellingWorldEntity {
     }
 
     public void takeTurn() {
-        printOptions();
-        boolean turnCompleted = false;
+        ArrayList<String> options = printOptions();
         Scanner userInput = new Scanner(System.in);
-        while (!userInput.hasNext()){
+        while (!userInput.hasNext());
         int selection=(Integer.parseInt(userInput.nextLine()));
-        }
-        int selection=(Integer.parseInt(userInput.nextLine()));
-        resolveTurn(selection); // Is this a type of resolve move?
+        
+        resolveTurn(selection,options); // Is this a type of resolve move?
      
     }
-    public void printOptions(){ //Return all places the person can move
-        ArrayList<Coordinates> moves = this.location.availableMoves(world);
-        System.out.println("Move forwards");
+    public ArrayList<String> printOptions(){ //Return all places the person can move
+        ArrayList<String> options = new ArrayList<>();
+        
+        System.out.println("--------------- Option Selection ---------------");
+        int optionIndex = 0;
+        String toMove = "Move in direction: ";
 
-        ArrayList<NPC> daddy = world.getNonPlayerCharacters();
+
+        ArrayList<Coordinates> moves = this.location.availableMoves(world);
+        for(Coordinates move : moves){
+            String optionFormat = ("Option Number " + "(" + optionIndex +") ");
+            System.out.print(optionFormat);
+            System.out.println(toMove +"[" +  move.getX() + "," + move.getY()+ "]");
+            optionIndex+=1;
+            
+            if(move.equals(Coordinates.NORTH_VECTOR)){
+                options.add("Move,Up");
+            }
+            if(move.equals(Coordinates.SOUTH_VECTOR)){
+                options.add("Move,Down");
+            }
+            if(move.equals(Coordinates.EAST_VECTOR)){
+                options.add("Move,Right");
+            }
+            if(move.equals(Coordinates.WEST_VECTOR)){
+                options.add("Move,Left");
+            }
+
+
+        }
+
+
+        ArrayList<NPC> npcs = this.getWorld().getNonPlayerCharacters();
+        for(NPC npc : npcs){
+            String optionFormat = ("Option Number " + "(" + optionIndex +") ");
+            if(npc.getLocation().getX()==this.getLocation().getX() && npc.getLocation().getY()==this.getLocation().getY()){
+                System.out.print("\n"+ optionFormat);
+                System.out.println(" Interact with " + npc.getName() );
+                optionIndex++;
+                options.add("Interact,"+ npc.getName());
+            }
+        }
+     return options;
+
 
     }
-    public void resolveTurn(int selection){
-        switch(selection){
-            case (1): //Move North
-            move(new Coordinates(location.getX()+1, location.getY()));
+    public void resolveTurn(int selection, ArrayList<String> options){
+        switch(options.get(selection)){
+            case("Move,Up"):
+            this.move(Coordinates.NORTH_VECTOR);
             break;
-
-            
+            case("Move,Down"):
+            this.move(Coordinates.SOUTH_VECTOR);
+            break;
+            case("Move,Right"):
+            this.move(Coordinates.EAST_VECTOR);
+            break;
+            case("Move,Left"):
+            this.move(Coordinates.WEST_VECTOR);
+            break;
         }
+        ArrayList<NPC> npcs = this.getWorld().getNonPlayerCharacters();
+        for(NPC npc : npcs){
+            if(options.get(selection).contains(npc.getName())){
+                npc.encounter(this);
+                SY
+            }
+        }
+
     }
     
     

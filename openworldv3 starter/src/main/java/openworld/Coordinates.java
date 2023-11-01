@@ -9,6 +9,7 @@ public class Coordinates {
     public final static Coordinates WEST_VECTOR = new Coordinates(0, -1);
     public final static Coordinates STATIONARY = new Coordinates(0, 0);
 
+
     private int x;
     private int y;
 
@@ -36,6 +37,24 @@ public class Coordinates {
             return WEST_VECTOR;
         }
         return STATIONARY;
+    }
+    public ArrayList<Coordinates> availableMoves(World world){
+        ArrayList<Coordinates> moves = new ArrayList<>();
+        if(x + 1 <=world.getxDimension()){
+            moves.add(NORTH_VECTOR);
+        }
+        if(y+1<=world.getyDimension()){
+            moves.add(EAST_VECTOR);
+        }
+        if(x-1 >=0){
+            moves.add(SOUTH_VECTOR);
+        }
+        if(y-1>=0){
+            moves.add(WEST_VECTOR);
+        }
+
+
+        return moves;
     }
 
 

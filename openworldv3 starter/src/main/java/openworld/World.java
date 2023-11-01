@@ -317,12 +317,12 @@ public class World {
                 countUp++;
                 if (countUp == frequency) {
                     if (healerCount <= wizardCount) {
-                        nonPlayerCharacters.add(new Healer("Healer " + healerCount, new Coordinates(x, y), 15, this,
+                        nonPlayerCharacters.add(new Healer("Healer " + healerCount, new Coordinates(x, y), 5000, this,
                                 new Damage(5, DamageType.PHYSICAL), randomCoordinates()));
                         healerCount++;
                         countUp = 0;
                     } else {
-                        nonPlayerCharacters.add(new Wizard("Wizard " + wizardCount, new Coordinates(x, y), 20, this,
+                        nonPlayerCharacters.add(new Wizard("Wizard " + wizardCount, new Coordinates(x, y), 5000, this,
                                 new Damage(8, DamageType.PHYSICAL), randomCoordinates()));
                         wizardCount++;
                         countUp = 0;
