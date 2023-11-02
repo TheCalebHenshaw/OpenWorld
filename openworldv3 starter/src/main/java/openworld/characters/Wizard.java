@@ -6,6 +6,7 @@ import openworld.DamageType;
 import openworld.World;
 import openworld.Adventurer.Adventurer;
 import openworld.entityTypes.TravellingWorldEntity;
+import openworld.entityTypes.WorldEntity;
 import openworld.monsters.Monster;
 
 public class Wizard extends NPC{
@@ -27,4 +28,7 @@ public class Wizard extends NPC{
             world.battle(this,traveller);
         }
     }  
+    public void attack(WorldEntity traveller){
+        traveller.takeDamage(attack);
+    }
 }

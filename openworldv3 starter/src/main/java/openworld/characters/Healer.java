@@ -5,7 +5,7 @@ import openworld.Damage;
 import openworld.World;
 import openworld.Adventurer.Adventurer;
 import openworld.entityTypes.TravellingWorldEntity;
-
+import openworld.entityTypes.WorldEntity;
 import openworld.monsters.Monster;
 
 public class Healer extends NPC {
@@ -26,5 +26,11 @@ public class Healer extends NPC {
         {
             world.battle(this,traveller);
         }
+    }
+
+    @Override
+    public void attack(WorldEntity traveller) {
+
+        traveller.takeDamage(attack);
     }
 }

@@ -1,22 +1,30 @@
 package openworld.Items;
 
-public class Item {
+import openworld.Coordinates;
+import openworld.entityTypes.TravellingWorldEntity;
+
+public abstract class Item {
+    protected Coordinates location;
     private String name;
     private int minLevelOfUse;
-    private int uses;
+    private String description;
 
-    public Item(String name, int minLevelOfUse, int uses){
+    public Item(String name, int minLevelOfUse, String description, Coordinates location){
         this.name = name;
         this.minLevelOfUse = minLevelOfUse;
-        this.uses = uses;
+        this.description = description;
+        this.location = location;
     }
 
-    public void setUses(int uses){
-        this.uses = uses;
+    public abstract void use(TravellingWorldEntity entity);
+
+    public Coordinates getLocation(){
+        return this.location;
     }
-    public int getUses(){
-        return this.uses;
+    public String getName(){
+        return this.name;
     }
+
 
 
 

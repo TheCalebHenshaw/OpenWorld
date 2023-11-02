@@ -7,7 +7,7 @@ import openworld.entityTypes.TravellingWorldEntity;
 import openworld.entityTypes.WorldEntity;
 
 
-public class NPC extends TravellingWorldEntity {
+public abstract class NPC extends TravellingWorldEntity {
 
     protected Coordinates goal;
     public NPC(String name, Coordinates location, int maxHealth, World world, Damage attack, Coordinates goal) {

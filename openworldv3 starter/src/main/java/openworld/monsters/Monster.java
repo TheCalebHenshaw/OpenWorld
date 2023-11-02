@@ -7,7 +7,7 @@ import openworld.entityTypes.TravellingWorldEntity;
 import openworld.entityTypes.WorldEntity;
 
 
-public class Monster extends TravellingWorldEntity{
+public abstract class Monster extends TravellingWorldEntity{
     private int speed;
     private int stepTimer=0;
     protected boolean awake;

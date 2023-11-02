@@ -5,7 +5,7 @@ import openworld.Damage;
 import openworld.World;
 import openworld.entityTypes.WorldEntity;
 
-public class Terrain extends WorldEntity{
+public abstract class Terrain extends WorldEntity{
 
     public boolean explorable=false;
 
@@ -19,7 +19,7 @@ public class Terrain extends WorldEntity{
     }
 
     public void attack(WorldEntity traveller) {
-        
+        traveller.takeDamage(attack);
     }
 
 

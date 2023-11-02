@@ -7,7 +7,7 @@ import openworld.DamageType;
 import openworld.World;
 import openworld.Adventurer.Adventurer;
 
-public class WorldEntity {
+public abstract class WorldEntity {
     protected String name;
     protected Coordinates location;
     protected int maxHealth;
@@ -84,9 +84,8 @@ public class WorldEntity {
 
 
 
-    public void attack(WorldEntity traveller)
+    public abstract void attack(WorldEntity traveller);
     {
-        traveller.takeDamage(attack);
     } 
 
     
@@ -136,6 +135,10 @@ public class WorldEntity {
     }
 
     public void setCurrentHealth(int health) {
+        if(currentHealth+health > maxHealth){
+            currentHealth=maxHealth;
+            return;
+        }
         currentHealth=health;
     }
 }

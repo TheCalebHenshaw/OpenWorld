@@ -3,6 +3,8 @@ package openworld.Adventurer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import openworld.Items.HealthPotion;
+import openworld.Items.Item;
 import openworld.Coordinates;
 import openworld.Damage;
 import openworld.World;
@@ -15,6 +17,8 @@ import openworld.terrain.Mountain;
 
 public class Adventurer extends TravellingWorldEntity {
 
+
+    private ArrayList<Item> inventory = new ArrayList<>();
     private Damage[] attacks = new Damage[3];
     private int totalAttacks = 1;
 
@@ -39,7 +43,9 @@ public class Adventurer extends TravellingWorldEntity {
     public Damage[] getAttacks() {
         return attacks;
     }
-
+    public void addItemToInventory(Item item){
+        inventory.add(item);
+    }
     public void takeTurn() {
         ArrayList<String> options = printOptions();
         Scanner userInput = new Scanner(System.in);
@@ -91,6 +97,25 @@ public class Adventurer extends TravellingWorldEntity {
                 options.add("Interact,"+ npc.getName());
             }
         }
+        ArrayList<Item> items = this.getWorld().getItems();
+        for(Item it : items){
+            String optionFormat = ("Option Number " + "(" + optionIndex +") ");
+            if(it.getLocation().equals(this.getLocation())){
+                System.out.print(optionFormat);
+                System.out.println("Pick up " + it.getName());
+                optionIndex++;
+                options.add("PickupItem,"+it.getName());
+            }
+        }
+        for(Item inven : inventory){
+            String optionFormat = ("Option Number " + "(" + optionIndex +") ");
+            if(inven instanceof HealthPotion){
+                System.out.print(optionFormat);
+                System.out.println("Use Health Potion");
+                optionIndex++;
+                options.add("UseItem,"+inven.getName());
+            }
+        }
      return options;
 
 
@@ -114,9 +139,22 @@ public class Adventurer extends TravellingWorldEntity {
         for(NPC npc : npcs){
             if(options.get(selection).contains(npc.getName())){
                 npc.encounter(this);
-                SY
             }
         }
+        ArrayList<Item> items = this.getWorld().getItems();
+        for(Item it : items){
+            if(options.get(selection).equals("PickupItem,"+it.getName())){
+                addItemToInventory(it);
+                System.out.println("Added "+it.getName()+" to Inventory!");
+            }
+        }
+        for(Item it : inventory){
+            if(options.get(selection).equals("UseItem,"+it.getName())){
+                it.use(this);
+                System.out.println("A healing potion has been used!");
+            }
+        }
+
 
     }
     

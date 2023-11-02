@@ -4,7 +4,7 @@ import openworld.Coordinates;
 import openworld.Damage;
 import openworld.World;
 
-public class TravellingWorldEntity extends WorldEntity{
+public abstract class TravellingWorldEntity extends WorldEntity{
 
     public TravellingWorldEntity(String name, Coordinates location, int maxHealth, World world, Damage attack) {
         super(name, location, maxHealth, world, attack);

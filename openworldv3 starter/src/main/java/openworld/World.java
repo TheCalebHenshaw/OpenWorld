@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Random;
 
 import openworld.Adventurer.Adventurer;
+import openworld.Items.HealthPotion;
+import openworld.Items.Item;
 import openworld.characters.Healer;
 import openworld.characters.NPC;
 import openworld.characters.Wizard;
@@ -25,6 +27,7 @@ public class World {
     private int yDimension;
     private ArrayList<Terrain> terrain = new ArrayList<>();
     private ArrayList<Monster> monsters = new ArrayList<>();
+    private ArrayList<Item> groundItems = new ArrayList<>();
 
     private ArrayList<NPC> nonPlayerCharacters = new ArrayList<>();
     private Adventurer adventurer;
@@ -57,6 +60,7 @@ public class World {
         generateTerrain();
         generateMonsters();
         generateCharacters();
+        generateGroundItems();
         adventurer = new Adventurer("Bob", new Coordinates(0, 0), 100, this, new Damage(10, DamageType.PHYSICAL));
     }
 
@@ -73,6 +77,11 @@ public class World {
                 for (Terrain t : terrain) {
                     if (t.getLocation().equals(currentLocation)) {
                         entities.add(getShortenedName(t.getName()));
+                    }
+                }
+                for (Item it : groundItems){
+                    if(it.getLocation().equals(currentLocation)){
+                        entities.add(getShortenedName(it.getName()));
                     }
                 }
                 for (Monster m : monsters) {
@@ -281,6 +290,9 @@ public class World {
         }
     }
 
+    public void generateGroundItems(){
+        groundItems.add(new HealthPotion("HPPOT0", 0,15,10,new Coordinates(0, 2)));
+    }
     public void generateMonsters() {
         int skeletonCount = 0;
         int blobCount = 0;
@@ -360,7 +372,9 @@ public class World {
     public ArrayList<Monster> getMonsters() {
         return monsters;
     }
-
+    public ArrayList<Item> getItems(){
+        return groundItems;
+    }
     public ArrayList<NPC> getNonPlayerCharacters() {
         return nonPlayerCharacters;
     }
